@@ -4,14 +4,19 @@
 
 Project Design Document
 Project Goal: Create a project that highlights the following:
-    a. Abstraction
-    b. Inheirtance
-    c. Polymorphism
-    d. Encapsulation
+1. Abstraction
+2. Inheirtance
+3. Polymorphism
+4. Encapsulation
 
 Project title - Magic simulation 
 
 Project Overview
+
+Project Themes:
+1. Simplistic Primitives 
+2. Geometric
+3. Techno
 
 The application:
 Scenes in the project
@@ -25,6 +30,7 @@ Menu:
 1. Able to start the game 
 2. Menu has a background music to it
 3. Shows the longest time survived
+4. Able to exit the game
 
 
 Main Scene:
@@ -47,15 +53,28 @@ Player:
 2. A random power up is spawned with the player
 3. The power up will fire in predefined patterns automatically
 4. Player has a health amount and when health is depleted, the game is over
+5. When the player dies, play a sound effect
 
 Power ups:
 1. Power ups stack on each other
 2. Power up are spawn randomly on the scene every x amount of time
 3. Different power up would shoot different types of fireballs automatically (Fire, earth, water, wind, lightning)
-4. Power up will have different cool downs 
+4. Power up will have different cool downs
+5. When picking up a power up, play a sound effect 
 
 Enemy:
-5. Enemy will spawn from different directions and close in at the player
-6. Enemy will have 3 types (Easy, Medium, Hard). They differentiate by their speed, size, life
-7. Spawn density reduces as survived time goes on
+1. Enemy will spawn from different directions and close in at the player
+2. Enemy will have 3 types (Easy, Medium, Hard). They differentiate by their speed, size, life
+3. Spawn density reduces as survived time goes on
+4. When eneymy is killed, play a sound effect
+5. When eneymy is hit, play a sound effect
+
+
+Sound effects & Music needed:
+1. Menu and playing background music
+2. Power up sound FX
+3. Enemy hit sound FX
+4. Enemy parish sound FX
+5. Button click sound FX
+6. Game Over sound FX
 
