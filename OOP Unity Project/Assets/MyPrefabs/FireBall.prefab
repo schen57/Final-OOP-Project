@@ -4836,9 +4836,10 @@ GameObject:
   - component: {fileID: 2298622994382843442}
   - component: {fileID: 2278161126477818970}
   - component: {fileID: 2114898044572912025}
+  - component: {fileID: -4318572298524778165}
   m_Layer: 0
   m_Name: FireBall
-  m_TagString: Untagged
+  m_TagString: Magic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4878,7 +4879,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -9665,7 +9666,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d67fb6bc9aa6941ab98b5ea36fbfdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  speed: 10
+  direction: {x: 0, y: 0, z: 1}
+--- !u!65 &-4318572298524778165
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115768620233687000}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2116008562035990546
 GameObject:
   m_ObjectHideFlags: 0

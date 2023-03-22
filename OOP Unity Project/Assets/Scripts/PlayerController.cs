@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
     public int numObjects = 8; // the number of objects to spawn
     public float radius = 5.0f; // the radius of the ring
     public float offsetY = 0.0f; // the height offset of the ring
-    
+    private float xBounds = 34;
+    private float zBounds = 16;
 
 
     // Start is called before the first frame update
@@ -19,16 +20,9 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        for (int i = 0; i < numObjects; i++)
-        {
-            float angle = i * Mathf.PI * 2f / numObjects;
-            Vector3 pos = new Vector3(Mathf.Cos(angle), offsetY, Mathf.Sin(angle)) * radius;
-            GameObject obj = Instantiate(fireBall, transform.position + pos, Quaternion.identity);
-            obj.transform.LookAt(transform.position);
-            obj.transform.Rotate(0, 360f / numObjects * i, 0);
-            obj.transform.Rotate(0, 0, 90.0f);
-            obj.transform.parent = transform;
-        }
+        // Repeatedly spawn fireballs
+        InvokeRepeating("SpawnFireBalls", 0, 1f);
+       
     }
 
     // Update is called once per frame
@@ -40,7 +34,22 @@ public class PlayerController : MonoBehaviour
     }
 
     void MovementControl()
-    {
+    {   // Constrain movement within a movement 
+        if (transform.position.x < -xBounds)
+        {
+            transform.position= new Vector3(-xBounds,transform.position.y,transform.position.z);
+        }else if (transform.position.x > xBounds)
+        {
+            transform.position = new Vector3(xBounds, transform.position.y, transform.position.z);
+        }else if(transform.position.z > zBounds)
+        {
+            transform.position = new Vector3(transform.position.x,  transform.position.y, zBounds);
+        }else if (transform.position.z < -zBounds)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -zBounds);
+        }
+
+        //Movement controls
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
@@ -49,6 +58,23 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
         {
             rb.velocity = Vector3.zero;
+        }
+        
+
+        
+    }
+
+    void SpawnFireBalls()
+    {
+        for (int i = 0; i < numObjects; i++)
+        {
+            float angle = i * Mathf.PI * 2f / numObjects;
+            Vector3 pos = new Vector3(Mathf.Cos(angle), offsetY, Mathf.Sin(angle)) * radius;
+            GameObject obj = Instantiate(fireBall, transform.position + pos, Quaternion.identity);
+            obj.transform.LookAt(transform.position);
+            obj.transform.Rotate(0, 360f / numObjects * i, 0);
+            obj.transform.Rotate(0, 90/ numObjects * i, 90);
+
         }
     }
 }
