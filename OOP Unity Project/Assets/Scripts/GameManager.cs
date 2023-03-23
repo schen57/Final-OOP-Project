@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -59,14 +59,6 @@ public class GameManager : MonoBehaviour
         enemiesDestroyedText.text = "Enemies Destroyed: " + enemiesDestroyed;
     }
 
-    public void StartGame()
-    {
-        SceneManager.LoadScene(1);
-    }
-
-    public void ReturnToMenu()
-    {
-        SceneManager.LoadScene(0);
-    }
+    
     
 }
