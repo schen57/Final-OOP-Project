@@ -7,18 +7,22 @@ public class PlayerController : MonoBehaviour
     private float speed = 10.0f;
     private Rigidbody rb;
     public GameObject fireBall;
+    private AudioSource damageSound;
 
     public int numObjects = 8; // the number of objects to spawn
     public float radius = 5.0f; // the radius of the ring
     public float offsetY = 0.0f; // the height offset of the ring
     private float xBounds = 34;
     private float zBounds = 16;
+    public int playerHealth = 100;
+    
 
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        damageSound = GetComponent<AudioSource>();
 
         // Repeatedly spawn fireballs
         InvokeRepeating("SpawnFireBalls", 0, 1f);
@@ -75,6 +79,15 @@ public class PlayerController : MonoBehaviour
             obj.transform.Rotate(0, 360f / numObjects * i, 0);
             obj.transform.Rotate(0, 90/ numObjects * i, 90);
 
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            damageSound.PlayOneShot(damageSound.clip);
+            playerHealth -= 10;
         }
     }
 }

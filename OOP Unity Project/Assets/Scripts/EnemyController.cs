@@ -12,11 +12,13 @@ public class EnemyController : MonoBehaviour
     private Rigidbody enemyRb;
     float speed=1;
     int health = 100;
+    GameManager gameManagerScript;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
         enemyRb = GetComponent<Rigidbody>();
+        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         smoke = transform.Find("Smoke").GetComponent<ParticleSystem>();
         breaking = transform.Find("SFX").GetComponent<AudioSource>();
     }
@@ -47,6 +49,7 @@ public class EnemyController : MonoBehaviour
                 smoke.Play(); // Play the smoke particle system
             }
             Destroy(gameObject);
+            gameManagerScript.enemiesDestroyed += 1;
         }
     }
 
