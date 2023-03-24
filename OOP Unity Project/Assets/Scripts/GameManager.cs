@@ -15,14 +15,16 @@ public class GameManager : MonoBehaviour
     PlayerController PlayerControllerScript;
     public int enemiesDestroyed = 0;
     float elapsedTime = 0;
-
+    public GameObject gameOverOverlay;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameOverOverlay = GameObject.Find("Game Over Group");
         PlayerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         InvokeRepeating("SpawnEnemy", 0, 2);
         UpdateUI();
+        gameOverOverlay.SetActive(false);
     }
 
     // Update is called once per frame

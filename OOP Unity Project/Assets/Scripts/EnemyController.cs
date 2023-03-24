@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour
     AudioSource breaking;
     bool hasPlayedSound = false;
     private Rigidbody enemyRb;
-    float speed=1;
+    float enemySpeed=3;
     int health = 100;
     GameManager gameManagerScript;
     // Start is called before the first frame update
@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
     void EnemyMovement()
     {
         playerDirection = new Vector3(player.transform.position.x, 0.8f, player.transform.position.z) - transform.position;
-        enemyRb.velocity = playerDirection * speed;
+        enemyRb.velocity = playerDirection * enemySpeed;
     }
 
     void PlayDestructionSequence()

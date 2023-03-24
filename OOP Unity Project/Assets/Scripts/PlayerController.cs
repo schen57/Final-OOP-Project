@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public GameObject fireBall;
     private AudioSource damageSound;
 
-    public int numObjects = 8; // the number of objects to spawn
+    private int numObjects = 1; // the number of objects to spawn
     public float radius = 5.0f; // the radius of the ring
     public float offsetY = 0.0f; // the height offset of the ring
     private float xBounds = 34;
