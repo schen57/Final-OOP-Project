@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Magic
   - Enemy
+  - GameOver
   layers:
   - Default
   - TransparentFX

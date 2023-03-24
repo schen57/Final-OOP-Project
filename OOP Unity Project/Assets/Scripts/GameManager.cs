@@ -16,22 +16,35 @@ public class GameManager : MonoBehaviour
     public int enemiesDestroyed = 0;
     float elapsedTime = 0;
     public GameObject gameOverOverlay;
+    public AudioSource mainBackgroundMusic;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameOverOverlay = GameObject.Find("Game Over Group");
+        gameOverOverlay = GameObject.FindWithTag("GameOver");
+        gameOverOverlay.SetActive(false);
+        mainBackgroundMusic = GetComponent<AudioSource>();
         PlayerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         InvokeRepeating("SpawnEnemy", 0, 2);
         UpdateUI();
-        gameOverOverlay.SetActive(false);
+        Debug.Log(gameOverOverlay == null);
     }
 
     // Update is called once per frame
     void Update()
     {
-        elapsedTime += Time.deltaTime;
-        UpdateUI();
+        if (PlayerController.isGameOver != true)
+        {
+            elapsedTime += Time.deltaTime;
+            UpdateUI();
+        }
+        else
+        {
+            GameOver();
+            CancelInvoke("SpawnEnemy");
+        }
+        
+
     }
 
     void SpawnEnemy()
@@ -59,6 +72,12 @@ public class GameManager : MonoBehaviour
         survivalTimeText.text = "Time Elapsed: " + Mathf.Round(elapsedTime);
         playerHealthText.text = "Health: " + PlayerControllerScript.playerHealth;
         enemiesDestroyedText.text = "Enemies Destroyed: " + enemiesDestroyed;
+    }
+
+    void GameOver()
+    {
+        gameOverOverlay.SetActive(true);
+        mainBackgroundMusic.Stop();
     }
 
     

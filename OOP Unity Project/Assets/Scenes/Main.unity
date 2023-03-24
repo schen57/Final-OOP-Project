@@ -641,6 +641,8 @@ MonoBehaviour:
   playerHealthText: {fileID: 581440974}
   enemiesDestroyedText: {fileID: 936047018}
   enemiesDestroyed: 0
+  gameOverOverlay: {fileID: 0}
+  mainBackgroundMusic: {fileID: 0}
 --- !u!82 &329998226
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1777,7 +1779,7 @@ GameObject:
   - component: {fileID: 1754843902}
   m_Layer: 5
   m_Name: Game Over Group
-  m_TagString: Untagged
+  m_TagString: GameOver
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

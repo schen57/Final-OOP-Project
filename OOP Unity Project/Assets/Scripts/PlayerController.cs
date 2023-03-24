@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     public GameObject fireBall;
     private AudioSource damageSound;
+    public static bool isGameOver;
 
     private int numObjects = 1; // the number of objects to spawn
     public float radius = 5.0f; // the radius of the ring
@@ -21,20 +22,26 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isGameOver = false;
         rb = GetComponent<Rigidbody>();
         damageSound = GetComponent<AudioSource>();
 
         // Repeatedly spawn fireballs
-        InvokeRepeating("SpawnFireBalls", 0, 1f);
+        if (!isGameOver)
+        {
+            InvokeRepeating("SpawnFireBalls", 0, 1f);
+        }
+        
        
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        MovementControl();
-
+        if (!isGameOver)
+        {
+            MovementControl();
+        }
     }
 
     void MovementControl()
@@ -84,10 +91,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") && playerHealth>0)
         {
             damageSound.PlayOneShot(damageSound.clip);
             playerHealth -= 10;
+        }else if (playerHealth <= 0)
+        {
+            isGameOver = true;
         }
     }
 }

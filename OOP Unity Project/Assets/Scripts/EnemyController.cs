@@ -2,6 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class Enemy
+{
+    public int health;
+    public float movementSpeed;
+    public float dmg;
+    public Enemy(int health, int movementSpeed, float dmg)
+    {
+        this.health = health;
+        this.movementSpeed = movementSpeed;
+        this.dmg = dmg;
+    }
+}
+
 public class EnemyController : MonoBehaviour
 {
     Vector3 playerDirection;
@@ -59,7 +72,6 @@ public class EnemyController : MonoBehaviour
         {
             // Code to damage the player or perform other actions
             health -= 20;
-            Debug.Log(health);
         }
     }
 }

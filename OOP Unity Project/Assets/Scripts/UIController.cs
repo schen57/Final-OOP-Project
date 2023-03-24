@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class UIController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class UIController : MonoBehaviour
 
     public void QuitGame()
     {
+        EditorApplication.isPlaying = false;
         Application.Quit();
     }
 
