@@ -150,7 +150,6 @@ public class EnemyController : MonoBehaviour
 
             // Set the damage text value
             dmgText.text = (20 - enemyProperties.def).ToString();
-            Debug.Log(dmgText.text);
             // Destroy the damage text object after a delay
             StartCoroutine(HideDamageText(dmgText));
         }

@@ -2,21 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
     private float speed = 10.0f;
     private Rigidbody rb;
     public GameObject fireBall;
     private AudioSource damageSound;
+    private AudioSource powerUpSfx;
     public static bool isGameOver;
 
-    private int numObjects = 8; // the number of objects to spawn
+    public int numObjects = 1; // the number of objects to spawn
     public float radius = 1.0f; // the radius of the ring
     public float offsetY = 0.0f; // the height offset of the ring
     private float xBounds = 34;
     private float zBounds = 16;
     public int playerHealth = 100;
     public EnemyController enemyControllerScript;
+    AudioSource[] sfx = new AudioSource[2];
 
 
 
@@ -25,8 +28,10 @@ public class PlayerController : MonoBehaviour
     {
         isGameOver = false;
         rb = GetComponent<Rigidbody>();
-        damageSound = GetComponent<AudioSource>();
-        
+        sfx = GetComponents<AudioSource>();
+        damageSound = sfx[0];
+        powerUpSfx = sfx[1];
+
 
         // Repeatedly spawn fireballs
         if (!isGameOver)
@@ -105,6 +110,10 @@ public class PlayerController : MonoBehaviour
         }else if (playerHealth <= 0)
         {
             isGameOver = true;
+        }else if (other.gameObject.CompareTag("PowerUp") && playerHealth > 0)
+        {
+            numObjects += 1;
+            powerUpSfx.PlayOneShot(powerUpSfx.clip);
         }
     }
 }

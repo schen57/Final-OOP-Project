@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI survivalTimeText;
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI enemiesDestroyedText;
+    public TextMeshProUGUI projectilesText;
     PlayerController PlayerControllerScript;
     public int enemiesDestroyed = 0;
     float elapsedTime = 0;
@@ -94,6 +95,7 @@ public class GameManager : MonoBehaviour
         survivalTimeText.text = "Time Elapsed: " + Mathf.Round(elapsedTime);
         playerHealthText.text = "Health: " + PlayerControllerScript.playerHealth;
         enemiesDestroyedText.text = "Enemies Destroyed: " + enemiesDestroyed;
+        projectilesText.text = "#Projectiles: " + PlayerControllerScript.numObjects;
     }
 
     void GameOver()

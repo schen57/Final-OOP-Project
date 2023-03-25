@@ -334,6 +334,7 @@
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/MagicController.cs"
 "Assets/Scripts/PlayerController.cs"
+"Assets/Scripts/PowerupController.cs"
 "Assets/Scripts/UIController.cs"
 -langversion:9.0
 
