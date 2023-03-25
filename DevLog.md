@@ -1,6 +1,10 @@
 Immediate Project Task List
 3/25/2023
-1. Add a weapon power pick up that increases the number of objects spawned
+~~1. Add a weapon power pick up that increases the number of objects spawned~~
+2. Spawn the power up randomly on the map for the player to pick up
+3. Add a pause screen to display:
+    - Tutorial Information (enemy information)
+    - Player's current stat (max health, current health, number of projectiles, attack power)
 2. Add another weapon system with a different movement pattern - rock - shot gun pattern - player position determine where the object is moving to 
 3. The weappon when powered up, the size of the objects increase
 4. Store the player's best score and display in the menu screen
