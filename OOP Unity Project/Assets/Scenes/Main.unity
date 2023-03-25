@@ -636,12 +636,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5851d6dbee7adb0429e76d877336db2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  easyEnemyPrefab: {fileID: 3569850672057392383, guid: df8b4bcba6a6caf47b439ae52576ca28, type: 3}
+  enemyPrefab:
+  - {fileID: 3569850672057392383, guid: df8b4bcba6a6caf47b439ae52576ca28, type: 3}
+  - {fileID: 8700569347730630033, guid: 86e551dee02c9bf41866799926bbe6e1, type: 3}
+  - {fileID: 4663029777616539066, guid: 9a8b130f48107f14f89abc9c51d336fd, type: 3}
   survivalTimeText: {fileID: 1369453591}
   playerHealthText: {fileID: 581440974}
   enemiesDestroyedText: {fileID: 936047018}
   enemiesDestroyed: 0
-  gameOverOverlay: {fileID: 0}
+  gameOverOverlay: {fileID: 1754843901}
   mainBackgroundMusic: {fileID: 0}
 --- !u!82 &329998226
 AudioSource:
@@ -1783,7 +1786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1754843902
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2306,6 +2309,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1090118982582265017, guid: 4ef01903df945064eb55a757dcaf1121, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090118982582265017, guid: 4ef01903df945064eb55a757dcaf1121, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1090118982582265029, guid: 4ef01903df945064eb55a757dcaf1121, type: 3}

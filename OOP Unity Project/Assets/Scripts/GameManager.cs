@@ -6,7 +6,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject easyEnemyPrefab;
+    public GameObject[] enemyPrefab = new GameObject[3];
     Vector3 spawnPosition;
     float cameraOffset = 15;
     public TextMeshProUGUI survivalTimeText;
@@ -21,13 +21,16 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameOverOverlay = GameObject.FindWithTag("GameOver");
-        gameOverOverlay.SetActive(false);
+
+        if (gameOverOverlay != null)
+        {
+            gameOverOverlay.SetActive(false);
+        }
         mainBackgroundMusic = GetComponent<AudioSource>();
         PlayerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
-        InvokeRepeating("SpawnEnemy", 0, 2);
+        InvokeRepeating("SpawnEnemy", 0, 5);
         UpdateUI();
-        Debug.Log(gameOverOverlay == null);
+        
     }
 
     // Update is called once per frame
@@ -40,8 +43,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            GameOver();
+            
             CancelInvoke("SpawnEnemy");
+            GameOver();
         }
         
 
@@ -49,21 +53,39 @@ public class GameManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-        
+        int swarmSize;
+        swarmSize = Mathf.RoundToInt(elapsedTime / 20);
 
         // Get the main camera in the scene
         Camera mainCamera = Camera.main;
-        GameObject easyEnemy = Instantiate(easyEnemyPrefab);
-
         // Calculate a random position outside of the camera's view
         float cameraHeight = mainCamera.orthographicSize;
         float cameraWidth = cameraHeight * mainCamera.aspect;
 
-        float x = Random.Range(0, 2) == 0 ? -cameraWidth- cameraOffset - easyEnemy.GetComponent<Renderer>().bounds.extents.x : cameraWidth+ cameraOffset + easyEnemy.GetComponent<Renderer>().bounds.extents.x;
-        float z = Random.Range(-cameraHeight- cameraOffset + easyEnemy.GetComponent<Renderer>().bounds.extents.z, cameraHeight+ cameraOffset - easyEnemy.GetComponent<Renderer>().bounds.extents.z);
-        spawnPosition = new Vector3(x, 0.5f, z);
+        // Spawn a swarm of enemy that's tied to how long the time has elapsed
+        for (int i = 0; i<= swarmSize; i++)
+        {
+            // Adjust the spawn probability
+            int probIndex = Random.Range(0, 100);
+            int enemyIndex=0;
+            if (probIndex < 60)
+            {
+                enemyIndex = 0;
+            }else if(probIndex < 90)
+            {
+                enemyIndex = 1;
+            }else if (probIndex < 100)
+            {
+                enemyIndex = 2;
+            }
+            GameObject enemy = Instantiate(enemyPrefab[enemyIndex]);
+            float x = Random.Range(0, 2) == 0 ? -cameraWidth - cameraOffset - enemy.GetComponent<Renderer>().bounds.extents.x : cameraWidth + cameraOffset + enemy.GetComponent<Renderer>().bounds.extents.x;
+            float z = Random.Range(-cameraHeight - cameraOffset + enemy.GetComponent<Renderer>().bounds.extents.z, cameraHeight + cameraOffset - enemy.GetComponent<Renderer>().bounds.extents.z);
+            spawnPosition = new Vector3(x, 0.5f, z);
+
+            enemy.transform.position = spawnPosition;
+        }
         
-        easyEnemy.transform.position = spawnPosition;
 
     }
 
@@ -75,8 +97,9 @@ public class GameManager : MonoBehaviour
     }
 
     void GameOver()
-    {
+    { 
         gameOverOverlay.SetActive(true);
+        Debug.Log(gameOverOverlay == true);
         mainBackgroundMusic.Stop();
     }
 
