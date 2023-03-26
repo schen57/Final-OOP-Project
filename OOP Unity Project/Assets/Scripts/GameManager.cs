@@ -7,6 +7,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public GameObject[] enemyPrefab = new GameObject[3];
+    public GameObject powerUpPrefab;
     Vector3 spawnPosition;
     float cameraOffset = 15;
     public TextMeshProUGUI survivalTimeText;
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
         mainBackgroundMusic = GetComponent<AudioSource>();
         PlayerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         InvokeRepeating("SpawnEnemy", 0, 5);
+        InvokeRepeating("SpawnPowerUp", 0, 15);
         UpdateUI();
         
     }
@@ -46,7 +48,17 @@ public class GameManager : MonoBehaviour
         {
             
             CancelInvoke("SpawnEnemy");
+            CancelInvoke("SpawnPowerUp");
             GameOver();
+        }
+
+        if (UIController.isGamePaused)
+        {
+            PlayerControllerScript.sfx[0].volume = 0.1f;
+        }
+        else if (!UIController.isGamePaused)
+        {
+            PlayerControllerScript.sfx[0].volume = 1;
         }
         
 
@@ -90,6 +102,31 @@ public class GameManager : MonoBehaviour
 
     }
 
+    void SpawnPowerUp()
+    {
+        // Get the main camera in the scene
+        Camera mainCamera = Camera.main;
+        // Calculate a random position outside of the camera's view
+        float cameraHeight = mainCamera.orthographicSize;
+        float cameraWidth = cameraHeight * mainCamera.aspect;
+        float xPos= Random.Range(-cameraWidth/2, cameraWidth/2);
+        float zPos = Random.Range(-cameraHeight / 2, cameraHeight / 2);
+        Vector3 powerUpSpawnPos = new Vector3(xPos, 0.649f, zPos);
+        GameObject powerUp;
+        powerUp = GameObject.Find("PowerUp");
+        if (powerUp == null)
+        {
+            powerUp = Instantiate(powerUpPrefab, powerUpSpawnPos, Quaternion.identity);
+        }
+        else
+        {
+            powerUp.SetActive(true);
+            powerUp.transform.position = powerUpSpawnPos;
+        }
+
+        
+    }
+
     void UpdateUI()
     {
         survivalTimeText.text = "Time Elapsed: " + Mathf.Round(elapsedTime);
@@ -101,7 +138,6 @@ public class GameManager : MonoBehaviour
     void GameOver()
     { 
         gameOverOverlay.SetActive(true);
-        Debug.Log(gameOverOverlay == true);
         mainBackgroundMusic.Stop();
     }
 

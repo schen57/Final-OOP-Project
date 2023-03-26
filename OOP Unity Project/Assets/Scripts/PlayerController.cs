@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private float zBounds = 16;
     public int playerHealth = 100;
     public EnemyController enemyControllerScript;
-    AudioSource[] sfx = new AudioSource[2];
+    public AudioSource[] sfx = new AudioSource[2];
 
 
 

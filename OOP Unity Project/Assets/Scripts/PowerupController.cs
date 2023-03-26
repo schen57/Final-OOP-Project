@@ -36,7 +36,6 @@ public class PowerupController : MonoBehaviour
             Vector3 screenPoint = Camera.main.WorldToScreenPoint(closestPoint);
             powerUpText.transform.position = screenPoint;
             powerUpText.text = "+1 Projectile";
-            Debug.Log(screenPoint);
             StartCoroutine(HidePowerUpText(powerUpText));
             
         }

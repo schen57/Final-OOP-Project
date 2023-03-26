@@ -6,7 +6,10 @@ using UnityEditor;
 
 public class UIController : MonoBehaviour
 {
+    public GameObject pauseUI;
+    public static bool isGamePaused;
 
+    
 
     public void StartGame()
     {
@@ -27,6 +30,23 @@ public class UIController : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(1);
-        
+        isGamePaused = false;
+
     }
+
+    public void ResumeGame()
+    {
+        pauseUI.SetActive(false);
+        isGamePaused = false;
+        //Time.timeScale = 1;
+        Debug.Log("Resume button is pressed");
+    }
+    public void PauseGame()
+    { 
+        pauseUI.SetActive(true);
+        isGamePaused = true;
+        //Time.timeScale = 0;
+    }
+
+
 }
