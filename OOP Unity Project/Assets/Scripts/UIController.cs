@@ -38,14 +38,14 @@ public class UIController : MonoBehaviour
     {
         pauseUI.SetActive(false);
         isGamePaused = false;
-        //Time.timeScale = 1;
+        Time.timeScale = 1.0f;
         Debug.Log("Resume button is pressed");
     }
     public void PauseGame()
     { 
         pauseUI.SetActive(true);
         isGamePaused = true;
-        //Time.timeScale = 0;
+        Time.timeScale = 0.0f;
     }
 
 
