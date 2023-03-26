@@ -31,6 +31,7 @@ public class EnemyController : MonoBehaviour
     bool hasPlayedSound = false;
     private Rigidbody enemyRb;
     public TextMeshProUGUI dmgText;
+    PlayerController playerControllerScript;
     
     
     GameManager gameManagerScript;
@@ -48,6 +49,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+        playerControllerScript = player.GetComponent<PlayerController>();
         enemyRb = GetComponent<Rigidbody>();
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         smoke = transform.Find("Smoke").GetComponent<ParticleSystem>();
@@ -152,6 +154,10 @@ public class EnemyController : MonoBehaviour
             dmgText.text = (20 - enemyProperties.def).ToString();
             // Destroy the damage text object after a delay
             StartCoroutine(HideDamageText(dmgText));
+            Material originalMaterial = GetComponent<Renderer>().material;
+            Material dmgMaterial = playerControllerScript.dmgMaterial;
+            StartCoroutine(SwapMaterialCoroutine(originalMaterial, dmgMaterial));
+
         }
 
         if (other.gameObject.CompareTag("Player")&&!PlayerController.isGameOver)
@@ -167,5 +173,10 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, avoidanceRadius);
     }
 
-    
+    IEnumerator SwapMaterialCoroutine(Material originalMaterial, Material dmgMaterial)
+    {
+        GetComponent<Renderer>().material = dmgMaterial;
+        yield return new WaitForSeconds(.01f);
+        GetComponent<Renderer>().material = originalMaterial;
+    }
 }

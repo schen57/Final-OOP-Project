@@ -9,6 +9,7 @@ Immediate Project Task List
 3. The weappon when powered up, the size of the objects increase
 4. Store the player's best score and display in the menu screen
 5. Add a player leveling system based on how many enemies killed 
+~~6. Add a material change when enemies are hit~~
 
 
 Past Tasks that are done

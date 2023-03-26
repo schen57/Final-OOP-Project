@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     float elapsedTime = 0;
     public GameObject gameOverOverlay;
     public AudioSource mainBackgroundMusic;
+    public GameObject pauseUI;
 
     // Start is called before the first frame update
     void Start()
@@ -28,10 +29,13 @@ public class GameManager : MonoBehaviour
         {
             gameOverOverlay.SetActive(false);
         }
+        Time.timeScale = 1.0f;
+        UIController.isGamePaused = false;
+
         mainBackgroundMusic = GetComponent<AudioSource>();
         PlayerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
-        InvokeRepeating("SpawnEnemy", 0, 5);
-        InvokeRepeating("SpawnPowerUp", 0, 15);
+        InvokeRepeating("SpawnEnemy", 2, 5);
+        InvokeRepeating("SpawnPowerUp", 2, 15);
         UpdateUI();
         
     }
@@ -39,12 +43,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Controlling the flow of the game 
         if (PlayerController.isGameOver != true)
         {
             elapsedTime += Time.deltaTime;
             UpdateUI();
         }
-        else
+        else if(PlayerController.isGameOver)
         {
             
             CancelInvoke("SpawnEnemy");
@@ -54,11 +59,15 @@ public class GameManager : MonoBehaviour
 
         if (UIController.isGamePaused)
         {
-            PlayerControllerScript.sfx[0].volume = 0.1f;
+            mainBackgroundMusic.volume = 0.2f;
+            Time.timeScale = 0.0f;
+            pauseUI.SetActive(true);
         }
         else if (!UIController.isGamePaused)
         {
-            PlayerControllerScript.sfx[0].volume = 1;
+            mainBackgroundMusic.volume = 1;
+            Time.timeScale = 1.0f;
+            pauseUI.SetActive(false);
         }
         
 
@@ -129,6 +138,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateUI()
     {
+        
         survivalTimeText.text = "Time Elapsed: " + Mathf.Round(elapsedTime);
         playerHealthText.text = "Health: " + PlayerControllerScript.playerHealth;
         enemiesDestroyedText.text = "Enemies Destroyed: " + enemiesDestroyed;

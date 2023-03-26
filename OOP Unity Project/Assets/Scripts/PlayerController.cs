@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public int playerHealth = 100;
     public EnemyController enemyControllerScript;
     public AudioSource[] sfx = new AudioSource[2];
+    public Material dmgMaterial;
 
 
 
@@ -48,6 +49,9 @@ public class PlayerController : MonoBehaviour
         if (!isGameOver)
         {
             MovementControl();
+        }else if (playerHealth <= 0)
+        {
+            isGameOver = true;
         }
     }
 
@@ -107,7 +111,11 @@ public class PlayerController : MonoBehaviour
             enemyControllerScript = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyController>();
             damageSound.PlayOneShot(damageSound.clip);
             playerHealth -= enemyControllerScript.enemyProperties.dmg;
-        }else if (playerHealth <= 0)
+            Material originalMaterial = GetComponent<Renderer>().material;
+            GetComponent<Renderer>().material = dmgMaterial;
+            StartCoroutine(SwapMaterialBack(originalMaterial, 0.01f));
+        }
+        else if (playerHealth <= 0)
         {
             isGameOver = true;
         }else if (other.gameObject.CompareTag("PowerUp") && playerHealth > 0)
@@ -115,5 +123,13 @@ public class PlayerController : MonoBehaviour
             numObjects += 1;
             powerUpSfx.PlayOneShot(powerUpSfx.clip);
         }
+    }
+
+    IEnumerator SwapMaterialBack(Material originalMaterial, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // Swap back to the original material
+        GetComponent<Renderer>().material = originalMaterial;
     }
 }
